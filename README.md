@@ -1,1 +1,1 @@
-jeyoo98.github.io/
+jeyoo98.github.io
