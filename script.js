@@ -183,18 +183,27 @@ function md5cycle(x, k) {
     }
     }
     
-    function getJSONP(url, success) {
-
-        var ud = '_' + +new Date,
-            script = document.createElement('script'),
-            head = document.getElementsByTagName('head')[0] 
-                   || document.documentElement;
-    
-        window[ud] = function(data) {
-            head.removeChild(script);
-            success && success(data);
+    var getJSON = function(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.responseType = 'json';
+        xhr.onload = function() {
+          var status = xhr.status;
+          if (status === 200) {
+            callback(null, xhr.response);
+          } else {
+            callback(status, xhr.response);
+          }
         };
-    
-        script.src = url.replace('callback=?', 'callback=' + ud);
-        head.appendChild(script);
+        xhr.send();
+    };
+
+    function RGBA(red,green,blue,alpha) {
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+        this.alpha = alpha;
+        this.getCSS = function() {
+            return "rgba("+this.red+","+this.green+","+this.blue+","+this.alpha+")";
+        }
     }

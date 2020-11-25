@@ -18,7 +18,7 @@
     </div>
     <section id="login">
         <div class="container">
-            <div id="login-container">
+            <div class="login-container">
                 <p>Login</p>
                 <div class="row">
                     <label>
@@ -32,11 +32,26 @@
                     </label>
                     <input type="password" name="password" id="password" class="field" placeholder="Enter your code..." required>
                 </div>
-                <button onclick="verify_user()">Login</button>
+                <div class="btn-container">
+                    <button class="btn" onclick="verify_user()">Login</button>
+                </div>
             </div>
         </div>
     </section>
+
     <section id="main">
+    
+        <div class="container">
+            <div class="login-container">
+                <p>Find out who's your KK!</p>
+                <div class="btn-container">
+                    <button class="btn" onclick="toggle_alpha()">Show</button>
+                </div>
+                <div id="kk_container">
+                    <label id="kk">Something went wrong...</label>
+                </div>
+            </div>
+        </div>
 
     </section>
 </body>
@@ -44,14 +59,59 @@
 </html> 
 
 <script>
-    let user_data = getJSONP();
+    var user_data = null;
+    var kk_list = null;
+
+    var login_body = document.getElementById("login");
+    var main_body = document.getElementById("main");
+    var kk = document.getElementById("kk");
+    var kk_container = document.getElementById("kk_container");
+    var visible = false;
+
+    var black = new RGBA(0, 0, 0, 1).getCSS();
+    var opaque = new RGBA(0, 0, 0, 0).getCSS();
+
+    var kk_target = null;
+
+    getJSON('https://raw.githubusercontent.com/jeyoo98/jeyoo98.github.io/main/data/users.json', function (err, data) {
+        user_data = data;
+    });
+
+    getJSON('https://raw.githubusercontent.com/jeyoo98/jeyoo98.github.io/main/data/kk_list.json', function (err, data) {
+        kk_list = data;
+    });
+
     function verify_user() {
         let email_input = document.getElementById("email");
         let code_input = document.getElementById("password");
         email = email_input.value;
         code = md5(code_input.value);
-        $.getJSON('', function(data) {
-            // JSON result in `data` variable
-        });
+
+        for (let key in user_data)
+        {
+            if (user_data[key]["email"] == email && user_data[key]["code"] == code)
+            {
+                login_body.style.display = "none";
+                main_body.style.display = "block";
+                kk_target = user_data[kk_list[key]]["name"];
+            }
+        }
+    }
+
+    function toggle_alpha()
+    {
+        if (visible)
+        {
+            kk.innerText = "uh";
+            kk_container.style.backgroundColor = black;
+        }
+        else
+        {
+            kk.innerText = kk_target;
+            kk_container.style.backgroundColor = opaque;
+        }
+
+        console.log(kk_container.style.backgroundColor);
+        visible = !visible;
     }
 </script>
