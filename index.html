@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 
-<link rel="stylesheet" type="text/css" href="https://jeyoo98.github.io/style.css">
-<script src="https://jeyoo98.github.io/script.js"></script>
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
 <head>
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
@@ -11,15 +11,12 @@
 
 <body>
     <div id="background-image">
-
-    </div>
-    <div id="overlay">
         
     </div>
     <section id="login">
         <div class="container">
             <div class="login-container">
-                <p>Login</p>
+                <b><p class="header">Login</p></b>
                 <div class="row">
                     <label>
                         E-mail Address
@@ -43,12 +40,15 @@
     
         <div class="container">
             <div class="login-container">
-                <p>Find out who's your KK!</p>
+                <b><p class="header">Find out who's your KK!</p></b>
                 <div class="btn-container">
                     <button class="btn" onclick="toggle_alpha()">Show</button>
                 </div>
                 <div id="kk_container">
                     <label id="kk">Something went wrong...</label>
+                    <br>
+                    <br>
+                    <a id="wishlist" href="">Wishlist Link</a>
                 </div>
             </div>
         </div>
@@ -61,25 +61,30 @@
 <script>
     var user_data = null;
     var kk_list = null;
+    var kk_target = null;
+    var link = null;
 
     var login_body = document.getElementById("login");
     var main_body = document.getElementById("main");
     var kk = document.getElementById("kk");
     var kk_container = document.getElementById("kk_container");
+    var wishlist = document.getElementById("wishlist");
     var visible = false;
 
     var black = new RGBA(0, 0, 0, 1).getCSS();
     var opaque = new RGBA(0, 0, 0, 0).getCSS();
+    var link_colour = new RGBA(0, 0, 255, 1).getCSS();
 
-    var kk_target = null;
 
     getJSON('https://raw.githubusercontent.com/jeyoo98/jeyoo98.github.io/main/data/users.json', function (err, data) {
         user_data = data;
+        console.log(user_data);
     });
 
     getJSON('https://raw.githubusercontent.com/jeyoo98/jeyoo98.github.io/main/data/kk_list.json', function (err, data) {
         kk_list = data;
     });
+
 
     function verify_user() {
         let email_input = document.getElementById("email");
@@ -94,6 +99,7 @@
                 login_body.style.display = "none";
                 main_body.style.display = "block";
                 kk_target = user_data[kk_list[key]]["name"];
+                link = user_data[kk_list[key]]["wishlist"];
             }
         }
     }
@@ -102,16 +108,19 @@
     {
         if (visible)
         {
-            kk.innerText = "uh";
+            kk.innerText = "Never gonna give you up!";
+            wishlist.style.color = black;
+            wishlist.setAttribute("href", "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
             kk_container.style.backgroundColor = black;
         }
         else
         {
             kk.innerText = kk_target;
+            wishlist.setAttribute("href", link);
+            wishlist.style.color = link_colour;
             kk_container.style.backgroundColor = opaque;
         }
 
-        console.log(kk_container.style.backgroundColor);
         visible = !visible;
     }
 </script>
