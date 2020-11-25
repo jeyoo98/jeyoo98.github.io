@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<title>Kris Kringle 2020</title>
+</head>
+
+<body>
+    <div id="background-image">
+
+    </div>
+    <div id="overlay">
+        
+    </div>
+    <section id="login">
+        <div class="container">
+            <div id="login-container">
+                <p>Login</p>
+                <div class="row">
+                    <label>
+                        E-mail Address
+                    </label>
+                    <input type="text" name="email" id="email" class="field" placeholder="Enter your e-mail address..." required>
+                </div>
+                <div class="row">
+                    <label>
+                        PIN Code
+                    </label>
+                    <input type="password" name="password" id="password" class="field" placeholder="Enter your code..." required>
+                </div>
+                <button onclick="verify_user()">Login</button>
+            </div>
+        </div>
+    </section>
+    <section id="main">
+
+    </section>
+</body>
+
+</html> 
+
+<script>
+    let user_data = getJSONP();
+    function verify_user() {
+        let email_input = document.getElementById("email");
+        let code_input = document.getElementById("password");
+        email = email_input.value;
+        code = md5(code_input.value);
+        $.getJSON('', function(data) {
+            // JSON result in `data` variable
+        });
+    }
+</script>
