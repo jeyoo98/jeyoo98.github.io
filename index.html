@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 
-<link rel="stylesheet" type="text/css" href="https://jeyoo98.github.io/style.css">
-<script src="https://jeyoo98.github.io/script.js"></script>
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
 <head>
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
@@ -42,7 +42,7 @@
             <div class="login-container">
                 <b><p class="header">Find out who's your KK!</p></b>
                 <div class="btn-container">
-                    <button class="btn" onclick="toggle_alpha()">Show</button>
+                    <button class="btn" onclick="toggle_alpha()" id="toggle">Show</button>
                 </div>
                 <div id="kk_container">
                     <label id="kk">Something went wrong...</label>
@@ -69,6 +69,7 @@
     var kk = document.getElementById("kk");
     var kk_container = document.getElementById("kk_container");
     var wishlist = document.getElementById("wishlist");
+    var toggle = document.getElementById("toggle");
     var visible = false;
 
     var black = new RGBA(0, 0, 0, 1).getCSS();
@@ -111,6 +112,7 @@
             wishlist.style.color = black;
             wishlist.setAttribute("href", "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
             kk_container.style.backgroundColor = black;
+			toggle.innerText = "Show";
         }
         else
         {
@@ -118,6 +120,7 @@
             wishlist.setAttribute("href", link);
             wishlist.style.color = link_colour;
             kk_container.style.backgroundColor = opaque;
+			toggle.innerText = "Hide";
         }
 
         visible = !visible;
