@@ -94,7 +94,7 @@
 
         for (let key in user_data)
         {
-            if (user_data[key]["email"] == email && user_data[key]["code"] == code)
+            if (toLowerCase(user_data[key]["email"]) == toLowerCase(email) && user_data[key]["code"] == code)
             {
                 login_body.style.display = "none";
                 main_body.style.display = "block";
